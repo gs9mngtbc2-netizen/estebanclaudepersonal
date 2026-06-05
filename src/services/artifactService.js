@@ -94,4 +94,14 @@ function getOutputFiles(id) {
   });
 }
 
-module.exports = { getAll, getById, create, updateStatus, run, getOutputFiles };
+function saveOutput(id, data) {
+  const artifact = getById(id);
+  if (!artifact) throw new Error(`Artifact ${id} not found`);
+  const outputFile = path.join(ARTIFACTS_DIR, `${id}-${Date.now()}.json`);
+  const payload = { artifactId: id, name: artifact.name, savedAt: new Date().toISOString(), data };
+  fs.writeFileSync(outputFile, JSON.stringify(payload, null, 2));
+  updateStatus(id, 'idle', 'success');
+  return { success: true, outputFile: path.basename(outputFile) };
+}
+
+module.exports = { getAll, getById, create, updateStatus, run, saveOutput, getOutputFiles };
