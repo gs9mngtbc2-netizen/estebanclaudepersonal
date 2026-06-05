@@ -1,0 +1,26 @@
+[
+  {
+    "id": "artifact-001",
+    "name": "Weekly Sales Report",
+    "description": "Generates weekly sales summary from data sources",
+    "type": "report",
+    "schedule": "weekly",
+    "cronExpression": "0 9 * * 1",
+    "status": "idle",
+    "lastRun": "2026-06-05T10:52:46.542Z",
+    "lastRunStatus": "success",
+    "createdAt": "2026-06-01T00:00:00Z"
+  },
+  {
+    "id": "artifact-002",
+    "name": "Daily Data Snapshot",
+    "description": "Takes a daily snapshot of key metrics",
+    "type": "data",
+    "schedule": "daily",
+    "cronExpression": "0 7 * * *",
+    "status": "idle",
+    "lastRun": null,
+    "lastRunStatus": null,
+    "createdAt": "2026-06-01T00:00:00Z"
+  }
+]
