@@ -64,4 +64,13 @@ router.get('/:id/outputs', (req, res) => {
   res.json({ artifactId: req.params.id, outputs });
 });
 
+// GET /artifacts/:id/outputs/latest — content of most recent output
+router.get('/:id/outputs/latest', (req, res) => {
+  const artifact = service.getById(req.params.id);
+  if (!artifact) return res.status(404).json({ error: 'Artifact not found' });
+  const content = service.getLatestOutput(req.params.id);
+  if (!content) return res.status(404).json({ error: 'No outputs yet' });
+  res.json(content);
+});
+
 module.exports = router;

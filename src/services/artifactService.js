@@ -94,6 +94,15 @@ function getOutputFiles(id) {
   });
 }
 
+function getLatestOutput(id) {
+  const files = fs.readdirSync(ARTIFACTS_DIR)
+    .filter(f => f.startsWith(id) && f.endsWith('.json'))
+    .sort()
+    .reverse();
+  if (!files.length) return null;
+  return JSON.parse(fs.readFileSync(path.join(ARTIFACTS_DIR, files[0]), 'utf-8'));
+}
+
 function saveOutput(id, data) {
   const artifact = getById(id);
   if (!artifact) throw new Error(`Artifact ${id} not found`);
@@ -104,4 +113,4 @@ function saveOutput(id, data) {
   return { success: true, outputFile: path.basename(outputFile) };
 }
 
-module.exports = { getAll, getById, create, updateStatus, run, saveOutput, getOutputFiles };
+module.exports = { getAll, getById, create, updateStatus, run, saveOutput, getOutputFiles, getLatestOutput };
